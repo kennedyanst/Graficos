@@ -176,13 +176,6 @@ ggplot(dados, aes(x=value)) +
 ggplot(dados, aes(x=value)) +
   geom_histogram(binwidth =0.2, color="white", fill=rgb(0.2,0.7,0.1,0.4))
 ```
-![image](https://user-images.githubusercontent.com/90532605/193432475-85014aa5-b130-483e-86d8-d0d5b85683d9.png)
-
-```
-# Cor Uniforme
-ggplot(dados, aes(x=value)) +
-  geom_histogram(binwidth =0.2, color="white", fill=rgb(0.2,0.7,0.1,0.4))
-```
 ![image](https://user-images.githubusercontent.com/90532605/193432491-b873da62-18d9-4c96-baea-cbe4b89332f7.png)
 
 ```
