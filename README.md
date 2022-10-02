@@ -96,3 +96,98 @@ ggplot(data, aes(x=my_x, y=my_y)) +
   geom_smooth(method = lm, color="red", se=TRUE) #se= margem de erro
 ```
 ![image](https://user-images.githubusercontent.com/90532605/193432304-9468da05-dd0c-4787-9bd4-e32a47cec544.png)
+***
+
+## TreeMap
+```
+# ---- Treemap
+#install.packages("treemap")
+library(treemap)
+
+# Dados 
+grupo <- c(rep("group-1", 4), rep("group-2", 2), rep("group-3", 3))
+subgrupo <- paste("subgroup", c(1,2,3,4,1,2,1,2,3), sep="-")
+valor <- c(13,5,22,12,11,7,3,1,23)
+data <- data.frame(grupo, subgrupo, valor)
+
+treemap(data,
+        index= c("grupo", "subgrupo"),
+        vSize = "valor",
+        type= "index",
+        fontsize.labels = c(15,12),
+        fontcolor.labels = c("white", "orange"),
+        fontface.labels = c(2,1),
+        bg.labels=220,
+        align.labels = list(c("center", "center"), c("right", "bottom")),
+        overlap.labels = 0.5,
+        inflate.labels = F)
+```
+![image](https://user-images.githubusercontent.com/90532605/193432376-d6bd83f1-0c7c-4cfe-87db-f3eaec6447a7.png)
+
+```
+# Invertendo a ordem do TreeMap
+treemap(data,
+        index=c("grupo", "subgrupo"),
+        vSize = "valor",
+        type="index",
+        border.col = c("black", "white"),
+        border.lwds = c(7,2))
+```
+![image](https://user-images.githubusercontent.com/90532605/193432384-976807a4-7b67-4ef9-b1dd-184ec6290363.png)
+***
+
+## Histograma
+```
+# Gerando valores para x
+X <- mtcars$mpg
+
+# Criando o histograma
+h <- hist(X,
+          breaks= 10,
+          col= "blue",
+          xlab= "Milhas Por Galão",
+          main = "Histograma com Curva de Distribuição")
+```
+![image](https://user-images.githubusercontent.com/90532605/193432408-ab958238-c2e7-4e53-afa3-65dfea667535.png)
+
+```
+# Customizando o histograma
+xfit <- seq(min(X), max(X), length=40)
+yfit <- dnorm(xfit, mean= mean(X), sd = sd(X))
+yfit <- yfit*diff(h$mids[1:2]) * length(X)
+lines(xfit, yfit, col="red", lwd=2)
+```
+![image](https://user-images.githubusercontent.com/90532605/193432428-f0a8df3a-4306-40a2-8d66-830158601d1c.png)
+
+```
+# Usando o ggplot2
+
+dados <- data.frame(value=rnorm(10000)) #rnorm: Cria uma variavel normal seguindo 
+#com uma distribuição aleatoria
+
+# Tamanho das colunas
+ggplot(dados, aes(x=value)) +
+  geom_histogram(binwidth = 0.05)
+```
+![image](https://user-images.githubusercontent.com/90532605/193432450-f00159be-d3c8-4417-840a-a8836355762a.png)
+
+```
+# Cor Uniforme
+ggplot(dados, aes(x=value)) +
+  geom_histogram(binwidth =0.2, color="white", fill=rgb(0.2,0.7,0.1,0.4))
+```
+![image](https://user-images.githubusercontent.com/90532605/193432475-85014aa5-b130-483e-86d8-d0d5b85683d9.png)
+
+```
+# Cor Uniforme
+ggplot(dados, aes(x=value)) +
+  geom_histogram(binwidth =0.2, color="white", fill=rgb(0.2,0.7,0.1,0.4))
+```
+![image](https://user-images.githubusercontent.com/90532605/193432491-b873da62-18d9-4c96-baea-cbe4b89332f7.png)
+
+```
+# Cor propocional
+ggplot(dados, aes(x=value)) +
+  geom_histogram(binwidth = 0.2, aes(fill=..count..))
+```
+![image](https://user-images.githubusercontent.com/90532605/193432505-834b33ce-1108-4d4a-a1b9-ff64ecc67262.png)
